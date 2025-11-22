@@ -10,18 +10,9 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role',   // admin, organizer, user
-        'status', // active, pending, rejected
-    ];
+    protected $fillable = ['name', 'email', 'password', 'role', 'status'];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     protected function casts(): array
     {
@@ -31,21 +22,18 @@ class User extends Authenticatable
         ];
     }
 
-    // Relasi: User (Organizer) punya banyak Event
     public function events()
     {
         return $this->hasMany(Event::class, 'organizer_id');
     }
 
-    // Relasi: User punya banyak Booking
     public function bookings()
     {
         return $this->hasMany(Booking::class);
     }
-    
-    // Helper untuk cek role
-    public function hasRole($role)
+
+    public function favorites()
     {
-        return $this->role === $role;
+        return $this->belongsToMany(Event::class, 'favorites', 'user_id', 'event_id')->withTimestamps();
     }
 }
