@@ -64,7 +64,94 @@
                                     <p class="font-bold text-gray-900">{{ $event->organizer->name }}</p>
                                 </div>
                             </div>
-                        </div>
+
+                            <hr class="border-gray-100 my-8">
+
+                            <div>
+                                <h3 class="font-bold text-xl mb-6 text-gray-900 flex items-center">
+                                    Ulasan Pengunjung
+                                    <span class="ml-3 bg-yellow-100 text-yellow-700 text-sm px-3 py-1 rounded-full flex items-center">
+                                        <svg class="w-4 h-4 mr-1 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                        {{ $event->average_rating ?? '0.0' }} / 5.0
+                                    </span>
+                                    <span class="ml-2 text-sm text-gray-400 font-normal">({{ $event->reviews->count() }} ulasan)</span>
+                                </h3>
+
+                                @auth
+                                    @php
+                                        // Cek Booking Approved
+                                        $userHasBooking = \App\Models\Booking::where('user_id', auth()->id())
+                                            ->whereIn('ticket_id', $event->tickets->pluck('id'))
+                                            ->where('status', 'approved')
+                                            ->exists();
+                                        
+                                        // Cek Sudah Review Belum
+                                        $userHasReviewed = $event->reviews->where('user_id', auth()->id())->isNotEmpty();
+                                    @endphp
+
+                                    @if($userHasBooking && !$userHasReviewed)
+                                        <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-8">
+                                            <h4 class="font-bold text-gray-800 mb-4">Tulis Pengalaman Anda</h4>
+                                            <form action="{{ route('reviews.store', $event->id) }}" method="POST">
+                                                @csrf
+                                                
+                                                <div class="mb-4">
+                                                    <label class="block text-sm font-medium text-gray-700 mb-2">Rating</label>
+                                                    <div class="flex flex-row-reverse justify-end gap-1">
+                                                        @for($i = 5; $i >= 1; $i--)
+                                                            <input type="radio" id="star{{$i}}" name="rating" value="{{$i}}" class="peer hidden" required />
+                                                            <label for="star{{$i}}" class="cursor-pointer text-gray-300 peer-checked:text-yellow-400 hover:text-yellow-400 peer-hover:text-yellow-400 transition">
+                                                                <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                                            </label>
+                                                        @endfor
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <label class="block text-sm font-medium text-gray-700 mb-2">Komentar</label>
+                                                    <textarea name="comment" rows="3" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Bagaimana keseruan acaranya? Ceritakan disini..." required></textarea>
+                                                </div>
+
+                                                <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-lg font-bold text-sm hover:bg-indigo-700 transition">
+                                                    Kirim Ulasan
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @elseif($userHasReviewed)
+                                        <div class="bg-green-50 text-green-700 p-4 rounded-lg mb-8 text-sm font-medium border border-green-200">
+                                            Terima kasih! Anda sudah memberikan ulasan untuk acara ini.
+                                        </div>
+                                    @endif
+                                @endauth
+
+                                <div class="space-y-6">
+                                    @forelse($event->reviews->sortByDesc('created_at') as $review)
+                                        <div class="flex space-x-4">
+                                            <div class="flex-shrink-0">
+                                                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-bold text-gray-500 uppercase">
+                                                    {{ substr($review->user->name, 0, 1) }}
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow">
+                                                <div class="flex items-center justify-between mb-1">
+                                                    <h5 class="font-bold text-gray-900">{{ $review->user->name }}</h5>
+                                                    <span class="text-xs text-gray-400">{{ $review->created_at->diffForHumans() }}</span>
+                                                </div>
+                                                <div class="flex text-yellow-400 mb-2">
+                                                    @for($j = 1; $j <= 5; $j++)
+                                                        <svg class="w-4 h-4 {{ $j <= $review->rating ? 'fill-current' : 'text-gray-300 fill-current' }}" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                                    @endfor
+                                                </div>
+                                                <p class="text-gray-600 text-sm leading-relaxed">{{ $review->comment }}</p>
+                                            </div>
+                                        </div>
+                                        @if(!$loop->last) <hr class="border-gray-50"> @endif
+                                    @empty
+                                        <p class="text-gray-500 italic">Belum ada ulasan untuk acara ini.</p>
+                                    @endforelse
+                                </div>
+                            </div>
+                            </div>
                     </div>
                 </div>
 

@@ -40,9 +40,14 @@ class Event extends Model
         return $this->hasManyThrough(Booking::class, Ticket::class);
     }
 
-    // Relasi Review (Advanced Requirement)
     public function reviews()
     {
         return $this->hasMany(Review::class);
     }
+
+    public function getAverageRatingAttribute()
+    {
+        return round($this->reviews()->avg('rating'), 1);
+    }
+
 }

@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
         // Favorites (BARU)
         Route::get('/my-favorites', [FavoriteController::class, 'index'])->name('favorites.index');
         Route::post('/events/{event}/favorite', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
+        Route::post('/events/{event}/review', [App\Http\Controllers\ReviewController::class, 'store'])->name('reviews.store');
     });
 
     // --- ROLE: ORGANIZER ---
