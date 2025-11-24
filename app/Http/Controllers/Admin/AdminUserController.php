@@ -14,21 +14,18 @@ class AdminUserController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
-    // Approve Organizer
     public function approve(User $user)
     {
         $user->update(['status' => 'active']);
         return back()->with('success', 'Organizer disetujui.');
     }
 
-    // Reject Organizer
     public function reject(User $user)
     {
         $user->update(['status' => 'rejected']);
         return back()->with('success', 'Organizer ditolak.');
     }
     
-    // Hapus User
     public function destroy(User $user)
     {
         $user->delete();

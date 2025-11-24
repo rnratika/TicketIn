@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class AdminEventController extends Controller
 {
-    // 1. Manage All Events
     public function index()
     {
         $events = Event::with('organizer')->latest()->get();
@@ -23,7 +22,6 @@ class AdminEventController extends Controller
         return back()->with('success', 'Event berhasil dihapus oleh Admin.');
     }
 
-    // 2. Global Reports
     public function reports()
     {
         $totalRevenue = Booking::where('status', 'approved')->sum('total_price');
@@ -34,19 +32,13 @@ class AdminEventController extends Controller
         return view('admin.reports.index', compact('totalRevenue', 'totalTicketsSold', 'totalEvents', 'totalOrganizers'));
     }
 
-    // BARU: Admin Create Event Form
     public function create()
     {
-        // Kita bisa reuse view organizer atau buat baru. 
-        // Untuk efisiensi, kita reuse view tapi pastikan route form action-nya benar.
-        // Di sini saya arahkan ke view khusus admin atau reuse view organizer dengan passing route.
         return view('organizer.events.create', ['isAdmin' => true]); 
     }
 
-    // BARU: Admin Store Event
     public function store(Request $request)
     {
-        // Validasi sama persis dengan Organizer
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required',
@@ -62,7 +54,7 @@ class AdminEventController extends Controller
         $imagePath = $request->file('image') ? $request->file('image')->store('events', 'public') : null;
 
         $event = Event::create([
-            'organizer_id' => auth()->id(), // Admin jadi organizer-nya
+            'organizer_id' => auth()->id(),
             'name' => $request->name,
             'description' => $request->description,
             'start_time' => $request->start_time,
@@ -73,7 +65,6 @@ class AdminEventController extends Controller
         foreach ($request->tickets as $ticketData) {
             $event->tickets()->create($ticketData);
         }
-
         return redirect()->route('admin.events.index')->with('success', 'Event berhasil dibuat oleh Admin.');
     }
 }
