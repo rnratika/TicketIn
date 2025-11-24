@@ -106,4 +106,47 @@ class OrganizerEventController extends Controller
             abort(403, 'Unauthorized action.');
         }
     }
+
+     public function attendees(Event $event)
+    {
+        // Pastikan event milik organizer ini
+        if ($event->organizer_id !== auth()->id()) {
+            abort(403);
+        }
+
+        // Ambil booking terkait event ini
+        $bookings = Booking::whereHas('ticket', function($q) use ($event) {
+            $q->where('event_id', $event->id);
+        })->with(['user', 'ticket'])->latest()->get();
+
+        return view('organizer.events.attendees', compact('event', 'bookings'));
+    }
+
+    // BARU: Approve Pesanan
+    public function approveBooking(Booking $booking)
+    {
+        // Validasi kepemilikan event
+        if ($booking->ticket->event->organizer_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $booking->update(['status' => 'approved']);
+        return back()->with('success', 'Pesanan disetujui.');
+    }
+
+    // BARU: Reject Pesanan
+    public function rejectBooking(Booking $booking)
+    {
+        if ($booking->ticket->event->organizer_id !== auth()->id()) {
+            abort(403);
+        }
+
+        DB::transaction(function () use ($booking) {
+            $booking->update(['status' => 'rejected']);
+            // Kembalikan kuota
+            $booking->ticket->increment('quota', $booking->quantity);
+        });
+
+        return back()->with('success', 'Pesanan ditolak dan kuota dikembalikan.');
+    }
 }

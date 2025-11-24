@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('ticket_id')->constrained()->onDelete('cascade');
             $table->integer('quantity');
             $table->decimal('total_price', 12, 2);
-            $table->enum('status', ['pending', 'approved', 'canceled'])->default('approved');
+            $table->enum('status', ['pending', 'approved', 'canceled', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }

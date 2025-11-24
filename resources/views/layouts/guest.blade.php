@@ -6,33 +6,41 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'TicketIn') }}</title>
-
+        <!-- Alpine.js -->
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        
+        <!-- Scripts -->
+        <script src="https://cdn.tailwindcss.com"></script>
         <style>
             body { font-family: 'Poppins', sans-serif; }
         </style>
     </head>
-    <body class="font-sans text-gray-900 antialiased bg-gray-50">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-50 relative overflow-hidden">
+    <body class="bg-[#FAFAFA] text-black antialiased">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 px-4 relative overflow-hidden">
             
-            <div class="absolute top-0 left-0 w-full h-64 bg-indigo-900 transform -skew-y-3 origin-top-left -z-10"></div>
-            
-            <div class="mb-6">
-                <a href="/" class="text-4xl font-bold text-white tracking-tighter drop-shadow-md">
-                    TicketIn<span class="text-indigo-300">.</span>
+            <!-- Dekorasi Background Abstrak -->
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-[#E73812]/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute top-1/2 -right-24 w-64 h-64 bg-[#F5CB49]/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 left-1/2 w-80 h-80 bg-[#B8948C]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Logo -->
+            <div class="mb-8 text-center relative z-10">
+                <a href="/" class="text-5xl font-extrabold tracking-tighter transition hover:scale-105 inline-block">
+                    <span class="text-[#E73812]">Ticket</span><span class="text-black">In</span><span class="text-black">.</span>
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-8 py-10 bg-white shadow-xl overflow-hidden sm:rounded-2xl border border-gray-100 relative z-10">
+            <!-- Card Container -->
+            <div class="w-full sm:max-w-md px-8 py-10 bg-white shadow-2xl shadow-[#B8948C]/10 overflow-hidden sm:rounded-3xl border border-[#B8948C]/20 relative z-10">
                 {{ $slot }}
             </div>
-
-            <div class="mt-8 text-center text-sm text-gray-500">
+            
+            <!-- Footer Kecil -->
+            <div class="mt-8 text-center text-xs text-[#B8948C] relative z-10">
                 &copy; {{ date('Y') }} TicketIn. All rights reserved.
             </div>
         </div>

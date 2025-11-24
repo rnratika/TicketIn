@@ -1,49 +1,47 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Edit Event: {{ $event->name }}
-        </h2>
+        <h2 class="font-bold text-xl text-black leading-tight">Edit Event: {{ $event->name }}</h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow-sm sm:rounded-xl p-6">
+            <div class="bg-white shadow-xl shadow-[#B8948C]/5 sm:rounded-3xl border border-[#B8948C]/20 p-8">
                 <form action="{{ route('organizer.events.update', $event->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf @method('PUT')
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
-                            <label class="block font-medium text-sm text-gray-700 mb-1">Nama Event</label>
-                            <input type="text" name="name" value="{{ old('name', $event->name) }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                            <label class="block font-bold text-sm text-black mb-2">Nama Event</label>
+                            <input type="text" name="name" value="{{ old('name', $event->name) }}" class="w-full rounded-xl border-[#B8948C]/30 shadow-sm focus:border-[#E73812] focus:ring-[#E73812]" required>
                         </div>
                         <div>
-                            <label class="block font-medium text-sm text-gray-700 mb-1">Waktu Mulai</label>
-                            <input type="datetime-local" name="start_time" value="{{ old('start_time', $event->start_time->format('Y-m-d\TH:i')) }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                            <label class="block font-bold text-sm text-black mb-2">Waktu Mulai</label>
+                            <input type="datetime-local" name="start_time" value="{{ old('start_time', $event->start_time->format('Y-m-d\TH:i')) }}" class="w-full rounded-xl border-[#B8948C]/30 shadow-sm focus:border-[#E73812] focus:ring-[#E73812]" required>
                         </div>
                     </div>
 
                     <div class="mb-6">
-                        <label class="block font-medium text-sm text-gray-700 mb-1">Lokasi</label>
-                        <input type="text" name="location" value="{{ old('location', $event->location) }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                        <label class="block font-bold text-sm text-black mb-2">Lokasi</label>
+                        <input type="text" name="location" value="{{ old('location', $event->location) }}" class="w-full rounded-xl border-[#B8948C]/30 shadow-sm focus:border-[#E73812] focus:ring-[#E73812]" required>
                     </div>
 
                     <div class="mb-6">
-                        <label class="block font-medium text-sm text-gray-700 mb-1">Deskripsi</label>
-                        <textarea name="description" rows="5" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>{{ old('description', $event->description) }}</textarea>
+                        <label class="block font-bold text-sm text-black mb-2">Deskripsi</label>
+                        <textarea name="description" rows="5" class="w-full rounded-xl border-[#B8948C]/30 shadow-sm focus:border-[#E73812] focus:ring-[#E73812]" required>{{ old('description', $event->description) }}</textarea>
                     </div>
 
-                    <div class="mb-6">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Gambar Saat Ini</label>
+                    <div class="mb-8">
+                        <label class="block font-bold text-sm text-black mb-2">Gambar Saat Ini</label>
                         @if($event->image)
-                            <img src="{{ asset('storage/' . $event->image) }}" class="h-32 w-auto rounded mb-2 object-cover">
+                            <img src="{{ asset('storage/' . $event->image) }}" class="h-40 w-auto rounded-xl mb-4 object-cover border border-[#B8948C]/20 shadow-sm">
                         @endif
-                        <label class="block font-medium text-xs text-gray-500 mb-1">Ganti Gambar (Opsional)</label>
-                        <input type="file" name="image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                        <label class="block font-bold text-xs text-[#B8948C] mb-2 uppercase tracking-wide">Ganti Gambar (Opsional)</label>
+                        <input type="file" name="image" class="block w-full text-sm text-[#B8948C] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-[#fff5f2] file:text-[#E73812] hover:file:bg-[#E73812] hover:file:text-white transition cursor-pointer">
                     </div>
 
-                    <div class="flex justify-end space-x-3">
-                        <a href="{{ route('organizer.events.index') }}" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md text-sm font-medium hover:bg-gray-300">Batal</a>
-                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md text-sm font-medium hover:bg-indigo-700 shadow">Update Event</button>
+                    <div class="flex justify-end space-x-3 pt-6 border-t border-[#B8948C]/20">
+                        <a href="{{ route('organizer.events.index') }}" class="px-6 py-2.5 bg-white border border-[#B8948C]/30 text-[#B8948C] rounded-xl font-bold text-sm hover:bg-gray-50 transition">Batal</a>
+                        <button type="submit" class="px-8 py-2.5 bg-[#E73812] text-white rounded-xl font-bold text-sm hover:bg-black transition shadow-lg shadow-red-100">Update Event</button>
                     </div>
                 </form>
             </div>

@@ -9,37 +9,29 @@ use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
-    // Menyimpan Pesanan (CORE LOGIC)
     public function store(Request $request, Ticket $ticket)
     {
-        $request->validate([
-            'quantity' => 'required|integer|min:1',
-        ]);
+        $request->validate(['quantity' => 'required|integer|min:1']);
 
         try {
             DB::transaction(function () use ($request, $ticket) {
-                // 1. Lock tiket untuk mencegah race condition
                 $ticketLocked = Ticket::where('id', $ticket->id)->lockForUpdate()->first();
 
-                // 2. Cek Kuota
                 if ($ticketLocked->quota < $request->quantity) {
-                    throw new \Exception('Maaf, tiket sudah habis atau kuota tidak mencukupi.');
+                    throw new \Exception('Maaf, tiket sudah habis.');
                 }
 
-                // 3. Kurangi Kuota
                 $ticketLocked->decrement('quota', $request->quantity);
-
-                // 4. Buat Booking
                 Booking::create([
                     'user_id' => auth()->id(),
                     'ticket_id' => $ticketLocked->id,
                     'quantity' => $request->quantity,
                     'total_price' => $ticketLocked->price * $request->quantity,
-                    'status' => 'approved', // Asumsi pembayaran langsung berhasil
+                    'status' => 'pending', 
                 ]);
             });
 
-            return redirect()->route('booking.history')->with('success', 'Tiket berhasil dipesan!');
+            return redirect()->route('booking.history')->with('success', 'Pesanan berhasil dibuat! Menunggu persetujuan Organizer');
 
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());

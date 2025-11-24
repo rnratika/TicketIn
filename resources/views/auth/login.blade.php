@@ -5,104 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login - TicketIn</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style> body { font-family: 'Poppins', sans-serif; } </style>
 </head>
-<body class="bg-white">
-
-    <div class="min-h-screen flex">
+<body class="bg-white h-screen overflow-hidden">
+    <div class="w-full h-full flex">
         
-        <div class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white">
-            <div class="mx-auto w-full max-w-md lg:w-[450px]">
+        <!-- KIRI: Image Visual -->
+        <div class="hidden lg:block w-1/2 h-full relative">
+            <img src="/img/c4.jpeg" class="w-full h-full object-cover" alt="Concert">
+            <!-- Overlay Gradient: Merah ke Hitam -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-black/80 via-[#E73812]/60 to-[#E08B36]/40 mix-blend-multiply"></div>
+            <div class="absolute bottom-0 left-0 p-16 text-white">
+                <h2 class="text-5xl font-extrabold mb-4 leading-tight">Feel the <br><span class="text-[#F5CB49]">Energy.</span></h2>
+                <p class="text-[#B8948C] text-lg opacity-90 bg-black/30 p-2 rounded inline-block">Platform tiket event terpercaya Anda.</p>
+            </div>
+        </div>
 
-                <div class="-mt-4 mb-4">
-                    <a href="/" class="text-5xl font-bold text-indigo-600 tracking-tighter">
-                        TicketIn<span class="text-gray-800">.</span>
-                    </a>
+        <!-- KANAN: Form -->
+        <div class="w-full lg:w-1/2 h-full flex items-center justify-center bg-white px-8">
+            <div class="w-full max-w-md">
+                <a href="/" class="inline-block mb-10">
+                    <span class="text-5xl font-extrabold tracking-tighter">
+                        <span class="text-[#E73812]">Ticket</span><span class="text-black">In</span><span class="text-black">.</span>
+                    </span>
+                </a>
+
+                <div class="mb-10">
+                    <h1 class="text-3xl font-bold text-black mb-2">Welcome Back!</h1>
+                    <p class="text-[#B8948C]">Silakan login untuk melanjutkan akses.</p>
                 </div>
 
-                <div class="mb-8">
-                    <h2 class="mt-1 text-2xl font-bold text-gray-900">Selamat Datang Kembali</h2>
-                    <p class="mt-2 text-sm text-gray-600">
-                        Masuk untuk mengelola tiket Anda.
-                    </p>
-                </div>
-
-                <div class="mt-8">
-                    <form method="POST" action="{{ route('login') }}" class="space-y-5">
-                        @csrf
-
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                            <div class="mt-1">
-                                <input id="email" name="email" type="email" required autofocus
-                                    class="appearance-none block w-full px-6 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-200"
-                                    placeholder="nama@email.com">
-                            </div>
-                            @error('email')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                            <div class="mt-1">
-                                <input id="password" name="password" type="password" required autocomplete="current-password"
-                                    class="appearance-none block w-full px-6 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-200"
-                                    placeholder="••••••••">
-                            </div>
-                            @error('password')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <input id="remember_me" name="remember" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                                <label for="remember_me" class="ml-2 block text-sm text-gray-900">Ingat Saya</label>
-                            </div>
-
-                            @if (Route::has('password.request'))
-                                <div class="text-sm">
-                                    <a href="{{ route('password.request') }}" class="font-medium text-indigo-600 hover:text-indigo-500">
-                                        Lupa password?
-                                    </a>
-                                </div>
-                            @endif
-                        </div>
-
-                        <div class="pt-2">
-                            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300 transform hover:scale-[1.02]">
-                                Masuk Sekarang
-                            </button>
-                        </div>
-                    </form>
-                    
-                    <div class="mt-3 text-center">
-                        <p class="text-sm text-gray-600">
-                            Belum punya akun? 
-                            <a href="{{ route('register') }}" class="font-medium text-indigo-600 hover:text-indigo-500">
-                                Daftar disini
-                            </a>
-                        </p>
+                <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                    @csrf
+                    <div>
+                        <label class="block text-sm font-bold text-black mb-2">Email Address</label>
+                        <input type="email" name="email" required autofocus class="w-full px-5 py-3 rounded-xl bg-gray-50 border border-[#B8948C]/30 text-black focus:outline-none focus:ring-2 focus:ring-[#E73812] focus:bg-white transition" placeholder="nama@email.com">
                     </div>
-                </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="block text-sm font-bold text-black">Password</label>
+                            <a href="{{ route('password.request') }}" class="text-sm text-[#E73812] font-bold hover:underline">Lupa Password?</a>
+                        </div>
+                        <input type="password" name="password" required class="w-full px-5 py-3 rounded-xl bg-gray-50 border border-[#B8948C]/30 text-black focus:outline-none focus:ring-2 focus:ring-[#E73812] focus:bg-white transition" placeholder="••••••••">
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-black text-white font-bold text-lg hover:bg-[#E73812] hover:shadow-lg hover:shadow-orange-200 transition duration-300 transform hover:-translate-y-0.5 border border-transparent">
+                        Sign In
+                    </button>
+                </form>
+
+                <p class="mt-8 text-center text-[#B8948C]">
+                    Belum punya akun? <a href="{{ route('register') }}" class="text-[#E73812] font-bold hover:underline">Daftar Sekarang</a>
+                </p>
             </div>
         </div>
-
-        <div class="aspect-square hidden lg:flex w-1/2 h-full relative ml-auto">
-            <img src="{{'img/concert.jpeg'}}" 
-                 alt="Concert Crowd" 
-                 class="h-full w-full object-cover object-center"/>
-            
-            <div class="absolute inset-0 bg-purple-900 opacity-40 mix-blend-multiply"></div>
-            
-            <div class="absolute inset-0 flex flex-col justify-end p-12 text-white z-10">
-                <h2 class="text-4xl font-bold mb-4">Rasakan Momennya.</h2>
-                <p class="text-lg text-purple-100">Bergabunglah dengan ribuan orang lainnya untuk menemukan event terbaik di kotamu.</p>
-            </div>
-        </div>
-
     </div>
 </body>
 </html>
