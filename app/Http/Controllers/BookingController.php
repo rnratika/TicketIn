@@ -38,7 +38,6 @@ class BookingController extends Controller
         }
     }
 
-    // Melihat Riwayat
     public function history()
     {
         $bookings = Booking::where('user_id', auth()->id())
@@ -49,7 +48,6 @@ class BookingController extends Controller
         return view('bookings.history', compact('bookings'));
     }
 
-    // Membatalkan Pesanan
     public function cancel(Booking $booking)
     {
         if ($booking->user_id !== auth()->id()) {
@@ -61,10 +59,8 @@ class BookingController extends Controller
         }
 
         DB::transaction(function () use ($booking) {
-            // Ubah status
             $booking->update(['status' => 'canceled']);
             
-            // Kembalikan kuota
             $booking->ticket->increment('quota', $booking->quantity);
         });
 
