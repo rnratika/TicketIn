@@ -48,6 +48,15 @@ class BookingController extends Controller
         return view('bookings.history', compact('bookings'));
     }
 
+    public function show(Booking $booking)
+    {
+        if ($booking->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        return view('bookings.show', compact('booking'));
+    }
+
     public function cancel(Booking $booking)
     {
         if ($booking->user_id !== auth()->id()) {
@@ -60,7 +69,6 @@ class BookingController extends Controller
 
         DB::transaction(function () use ($booking) {
             $booking->update(['status' => 'canceled']);
-            
             $booking->ticket->increment('quota', $booking->quantity);
         });
 

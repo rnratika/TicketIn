@@ -64,8 +64,8 @@
                             <div class="w-full h-full bg-gray-100 flex items-center justify-center text-[#B8948C]">No Image</div>
                         @endif
                         <!-- Date Badge -->
-                        <div class="absolute top-4 left-4 bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-lg text-sm font-medium text-black shadow-sm">
-                            📅 {{ $event->start_time->format('d M Y') }}
+                        <div class="absolute top-4 left-4 bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-lg text-sm font-bold text-black shadow-sm">
+                            {{ $event->start_time->format('d M Y') }}
                         </div>
                     </div>
                     

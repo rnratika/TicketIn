@@ -34,6 +34,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/my-bookings', [BookingController::class, 'history'])->name('booking.history');
         Route::patch('/my-bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
         
+        // Ticket
+        Route::get('/my-bookings/{booking}', [BookingController::class, 'show'])->name('booking.show');
+        Route::patch('/my-bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
+        
         // Favorites & Reviews
         Route::get('/my-favorites', [FavoriteController::class, 'index'])->name('favorites.index');
         Route::post('/events/{event}/favorite', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
