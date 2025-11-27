@@ -11,7 +11,6 @@
 <body class="bg-white h-screen overflow-hidden">
     <div class="w-full h-full flex">
         
-        <!-- KIRI: Form -->
         <div class="w-full lg:w-1/2 h-full flex items-center justify-center bg-white px-8 overflow-y-auto">
             <div class="w-full max-w-md py-10">
                 <a href="/" class="inline-block mb-4">
@@ -20,7 +19,23 @@
                     </span>
                 </a>
 
-                <!-- Bagian Header Teks Dihapus Sesuai Permintaan -->
+                @if ($errors->has('email'))
+                    <div class="mb-6 bg-[#FFF8E1] border-l-4 border-[#E73812] p-4 rounded-r-xl shadow-sm animate-pulse">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-[#E73812]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-bold text-red-800">Akun Sudah Terdaftar</h3>
+                                <div class="mt-1 text-xs text-red-700">
+                                    <p>Email ini sudah digunakan. Silakan <a href="{{ route('login') }}" class="underline font-bold">Login</a> jika ini akun Anda.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
                 <form method="POST" action="{{ route('register') }}" class="space-y-5">
                     @csrf
@@ -60,7 +75,6 @@
             </div>
         </div>
 
-        <!-- KANAN: Image Visual -->
         <div class="hidden lg:block w-1/2 h-full relative">
             <img src="/img/c6.jpeg" class="w-full h-full object-cover" alt="Festival Crowd">
             <div class="absolute inset-0 bg-gradient-to-bl from-black/90 via-[#E73812]/50 to-[#F5CB49]/30 mix-blend-multiply"></div>

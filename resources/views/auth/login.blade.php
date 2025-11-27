@@ -36,6 +36,24 @@
                     <p class="text-[#B8948C]">Silakan login untuk melanjutkan akses.</p>
                 </div>
 
+                @if ($errors->any())
+                    <div class="mb-6 bg-red-50 border-l-4 border-[#E73812] p-4 rounded-r-xl shadow-sm animate-pulse">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-[#E73812]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-bold text-red-800">Login Gagal</h3>
+                                <div class="mt-1 text-xs text-red-700">
+                                    <p>Akun tidak ditemukan atau password salah.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <form method="POST" action="{{ route('login') }}" class="space-y-6">
                     @csrf
                     <div>

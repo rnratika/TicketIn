@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Booking;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage; // untuk hapus gambar
 
 class AdminEventController extends Controller
 {
@@ -18,6 +19,7 @@ class AdminEventController extends Controller
 
     public function destroy(Event $event)
     {
+        if ($event->image) Storage::disk('public')->delete($event->image); 
         $event->delete();
         return back()->with('success', 'Event berhasil dihapus oleh Admin.');
     }
@@ -66,5 +68,32 @@ class AdminEventController extends Controller
             $event->tickets()->create($ticketData);
         }
         return redirect()->route('admin.events.index')->with('success', 'Event berhasil dibuat oleh Admin.');
+    }
+
+    public function edit(Event $event)
+    {
+        return view('organizer.events.edit', compact('event'));
+    }
+
+    public function update(Request $request, Event $event)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required',
+            'start_time' => 'required|date',
+            'location' => 'required|string',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        // upload gambar baru
+        if ($request->hasFile('image')) {
+            if ($event->image) Storage::disk('public')->delete($event->image);
+            $event->image = $request->file('image')->store('events', 'public');
+        }
+
+        // update data event
+        $event->update($request->only(['name', 'description', 'start_time', 'location', 'image']));
+
+        return redirect()->route('admin.events.index')->with('success', 'Event berhasil diperbarui oleh Admin.');
     }
 }

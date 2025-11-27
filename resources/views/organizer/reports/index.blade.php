@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
-                <h2 class="font-extrabold text-2xl text-black leading-tight tracking-tight">
+                <h2 class="font-bold text-2xl text-black leading-tight tracking-tight">
                     Laporan Penjualan Saya
                 </h2>
                 <p class="text-sm text-[#B8948C] mt-1">Pantau performa penjualan tiket event Anda.</p>
@@ -45,7 +45,7 @@
                                 <!-- Column: Event Name -->
                                 <td class="px-8 py-6">
                                     <div class="flex flex-col">
-                                        <span class="text-base font-extrabold text-black group-hover:text-[#E73812] transition">{{ $stat['event_name'] }}</span>
+                                        <span class="text-base font-bold text-black group-hover:text-[#E73812] transition">{{ $stat['event_name'] }}</span>
                                         <span class="text-xs text-[#B8948C] mt-0.5 font-medium">Laporan Penjualan Tiket</span>
                                     </div>
                                 </td>
@@ -60,7 +60,7 @@
 
                                 <!-- Column: Total Revenue -->
                                 <td class="px-8 py-6 text-right">
-                                    <span class="block font-extrabold text-[#E73812] text-lg tracking-tight">
+                                    <span class="block font-bold text-[#E73812] text-lg tracking-tight">
                                         Rp {{ number_format($stat['total_revenue'], 0, ',', '.') }}
                                     </span>
                                 </td>

@@ -6,7 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ReviewController; // Pastikan ini ada
+use App\Http\Controllers\ReviewController; 
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\Organizer\OrganizerEventController;
@@ -50,7 +50,6 @@ Route::middleware(['auth'])->group(function () {
             Route::resource('events', OrganizerEventController::class);
             Route::get('/reports', [OrganizerReportController::class, 'index'])->name('reports.index');
 
-            // [BARU] Organizer Booking Management (Lihat Peserta & Approval)
             Route::get('/events/{event}/attendees', [OrganizerEventController::class, 'attendees'])->name('events.attendees');
             Route::patch('/bookings/{booking}/approve', [OrganizerEventController::class, 'approveBooking'])->name('bookings.approve');
             Route::patch('/bookings/{booking}/reject', [OrganizerEventController::class, 'rejectBooking'])->name('bookings.reject');
@@ -67,10 +66,11 @@ Route::middleware(['auth'])->group(function () {
 
         // Event Management
         Route::get('/events', [AdminEventController::class, 'index'])->name('events.index');
-        
-        // [BARU] Admin Create Event Routes
         Route::get('/events/create', [AdminEventController::class, 'create'])->name('events.create');
         Route::post('/events', [AdminEventController::class, 'store'])->name('events.store');
+        
+        Route::get('/events/{event}/edit', [AdminEventController::class, 'edit'])->name('events.edit');
+        Route::put('/events/{event}', [AdminEventController::class, 'update'])->name('events.update');
         
         Route::delete('/events/{event}', [AdminEventController::class, 'destroy'])->name('events.destroy');
 

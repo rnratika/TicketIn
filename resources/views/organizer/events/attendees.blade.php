@@ -20,16 +20,16 @@
                 </div>
             @endif
 
-            <div class="bg-white shadow-2xl shadow-[#B8948C]/10 sm:rounded-[2rem] border border-[#B8948C]/20 overflow-hidden">
+            <div class="bg-white shadow-2xl shadow-[#E73812]/20 sm:rounded-3xl border-2 border-[#E73812]/20 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
-                        <thead class="text-xs text-white uppercase bg-black">
+                        <thead class="text-xs text-white uppercase bg-[#E73812]">
                             <tr>
-                                <th class="px-8 py-5 tracking-wider font-extrabold rounded-tl-[2rem]">Nama Peserta</th>
-                                <th class="px-6 py-5 tracking-wider font-extrabold">Tiket</th>
-                                <th class="px-6 py-5 tracking-wider font-extrabold">Total Bayar</th>
-                                <th class="px-6 py-5 text-center tracking-wider font-extrabold">Status</th>
-                                <th class="px-6 py-5 text-center tracking-wider font-extrabold rounded-tr-[2rem]">Aksi</th>
+                                <th class="px-8 py-5 tracking-wider font-bold rounded-tl-3xl">Nama Peserta</th>
+                                <th class="px-6 py-5 tracking-wider font-bold">Tiket</th>
+                                <th class="px-6 py-5 tracking-wider font-bold">Total Bayar</th>
+                                <th class="px-6 py-5 text-center tracking-wider font-bold">Status</th>
+                                <th class="px-6 py-5 text-center tracking-wider font-bold rounded-tr-3xl">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-[#B8948C]/10">
@@ -37,7 +37,7 @@
                             <tr class="bg-white hover:bg-[#fff5f2] transition duration-200">
                                 <td class="px-8 py-6">
                                     <div class="flex flex-col">
-                                        <span class="font-extrabold text-black">{{ $booking->user->name }}</span>
+                                        <span class="font-bold text-black">{{ $booking->user->name }}</span>
                                         <span class="text-xs text-[#B8948C]">{{ $booking->user->email }}</span>
                                     </div>
                                 </td>

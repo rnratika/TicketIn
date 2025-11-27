@@ -21,7 +21,7 @@
                 
                 <form action="{{ route('organizer.deleteAccount') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun ini permanen?');">
                     @csrf
-                    <button type="submit" class="bg-red-600 text-white font-bold py-2 px-6 rounded hover:bg-red-700 transition">
+                    <button type="submit" class="bg-red-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-700 transition">
                         Hapus Akun Saya
                     </button>
                 </form>

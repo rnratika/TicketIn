@@ -1,33 +1,37 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-bold text-xl text-black leading-tight">Edit Event: {{ $event->name }}</h2>
+        <h2 class="font-bold text-xl text-black leading-tight">
+            {{ Auth::user()->role === 'admin' ? 'Admin: Edit Event' : 'Edit Event' }}: {{ $event->name }}
+        </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-xl shadow-[#B8948C]/5 sm:rounded-3xl border border-[#B8948C]/20 p-8">
-                <form action="{{ route('organizer.events.update', $event->id) }}" method="POST" enctype="multipart/form-data">
+                
+                <!-- FORM DINAMIS (BISA UNTUK ADMIN & ORGANIZER) -->
+                <form action="{{ Auth::user()->role === 'admin' ? route('admin.events.update', $event->id) : route('organizer.events.update', $event->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf @method('PUT')
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label class="block font-bold text-sm text-black mb-2">Nama Event</label>
-                            <input type="text" name="name" value="{{ old('name', $event->name) }}" class="w-full rounded-xl border-[#B8948C]/30 shadow-sm focus:border-[#E73812] focus:ring-[#E73812]" required>
+                            <input type="text" name="name" value="{{ old('name', $event->name) }}" class="w-full rounded-xl border-[#B8948C]/30 shadow-sm focus:border-[#E73812] focus:ring-[#E73812] transition" required>
                         </div>
                         <div>
                             <label class="block font-bold text-sm text-black mb-2">Waktu Mulai</label>
-                            <input type="datetime-local" name="start_time" value="{{ old('start_time', $event->start_time->format('Y-m-d\TH:i')) }}" class="w-full rounded-xl border-[#B8948C]/30 shadow-sm focus:border-[#E73812] focus:ring-[#E73812]" required>
+                            <input type="datetime-local" name="start_time" value="{{ old('start_time', $event->start_time->format('Y-m-d\TH:i')) }}" class="w-full rounded-xl border-[#B8948C]/30 shadow-sm focus:border-[#E73812] focus:ring-[#E73812] transition" required>
                         </div>
                     </div>
 
                     <div class="mb-6">
                         <label class="block font-bold text-sm text-black mb-2">Lokasi</label>
-                        <input type="text" name="location" value="{{ old('location', $event->location) }}" class="w-full rounded-xl border-[#B8948C]/30 shadow-sm focus:border-[#E73812] focus:ring-[#E73812]" required>
+                        <input type="text" name="location" value="{{ old('location', $event->location) }}" class="w-full rounded-xl border-[#B8948C]/30 shadow-sm focus:border-[#E73812] focus:ring-[#E73812] transition" required>
                     </div>
 
                     <div class="mb-6">
                         <label class="block font-bold text-sm text-black mb-2">Deskripsi</label>
-                        <textarea name="description" rows="5" class="w-full rounded-xl border-[#B8948C]/30 shadow-sm focus:border-[#E73812] focus:ring-[#E73812]" required>{{ old('description', $event->description) }}</textarea>
+                        <textarea name="description" rows="5" class="w-full rounded-xl border-[#B8948C]/30 shadow-sm focus:border-[#E73812] focus:ring-[#E73812] transition" required>{{ old('description', $event->description) }}</textarea>
                     </div>
 
                     <div class="mb-8">
@@ -40,7 +44,8 @@
                     </div>
 
                     <div class="flex justify-end space-x-3 pt-6 border-t border-[#B8948C]/20">
-                        <a href="{{ route('organizer.events.index') }}" class="px-6 py-2.5 bg-white border border-[#B8948C]/30 text-[#B8948C] rounded-xl font-bold text-sm hover:bg-gray-50 transition">Batal</a>
+                        <a href="{{ Auth::user()->role === 'admin' ? route('admin.events.index') : route('organizer.events.index') }}" class="px-6 py-2.5 bg-white border border-[#B8948C]/30 text-[#B8948C] rounded-xl font-bold text-sm hover:bg-gray-50 transition">Batal</a>
+                        
                         <button type="submit" class="px-8 py-2.5 bg-[#E73812] text-white rounded-xl font-bold text-sm hover:bg-black transition shadow-lg shadow-red-100">Update Event</button>
                     </div>
                 </form>

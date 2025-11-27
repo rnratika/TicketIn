@@ -1,6 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-bold text-xl text-black leading-tight">Buat Event Baru</h2>
+        <h2 class="font-bold text-xl text-black leading-tight">
+            {{ Auth::user()->role === 'admin' ? 'Admin: Buat Event Baru' : 'Buat Event Baru' }}
+        </h2>
     </x-slot>
 
     <div class="py-12">
@@ -15,9 +17,9 @@
                     </div>
                 @endif
 
-                <form action="{{ route('organizer.events.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ Auth::user()->role === 'admin' ? route('admin.events.store') : route('organizer.events.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <!-- Event Details -->
+                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label class="block font-bold text-sm text-black mb-2">Nama Event</label>
@@ -73,7 +75,8 @@
                     </button>
 
                     <div class="flex justify-end mt-8 pt-6 border-t border-[#B8948C]/20">
-                        <a href="{{ route('organizer.events.index') }}" class="px-6 py-2.5 bg-white border border-[#B8948C]/30 text-[#B8948C] rounded-xl font-bold text-sm hover:bg-gray-50 mr-3 transition">Batal</a>
+                        <a href="{{ Auth::user()->role === 'admin' ? route('admin.events.index') : route('organizer.events.index') }}" class="px-6 py-2.5 bg-white border border-[#B8948C]/30 text-[#B8948C] rounded-xl font-bold text-sm hover:bg-gray-50 mr-3 transition">Batal</a>
+                        
                         <button type="submit" class="px-8 py-2.5 bg-[#E73812] text-white rounded-xl font-bold text-sm hover:bg-black transition shadow-lg shadow-red-100">
                             Simpan Event
                         </button>

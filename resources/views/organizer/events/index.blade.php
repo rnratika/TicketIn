@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-extrabold text-2xl text-black leading-tight tracking-tight">
+        <h2 class="font-bold text-2xl text-black leading-tight tracking-tight">
             Manajemen Acara
         </h2>
     </x-slot>
@@ -69,7 +69,7 @@
                                             @endif
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-base font-extrabold text-black group-hover:text-[#E73812] transition">{{ $event->name }}</div>
+                                            <div class="text-base font-bold text-black group-hover:text-[#E73812] transition">{{ $event->name }}</div>
                                             <div class="text-xs text-[#B8948C] mt-0.5 line-clamp-1 max-w-xs">{{ Str::limit($event->description, 50) }}</div>
                                         </div>
                                     </div>
