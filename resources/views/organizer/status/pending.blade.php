@@ -18,7 +18,7 @@
                     Terima kasih telah mendaftar sebagai Event Organizer di TicketIn.<br>
                     Admin kami sedang memverifikasi data Anda. Silakan cek kembali secara berkala.
                 </p>
-                <div class="inline-block bg-yellow-50 border border-yellow-200 rounded-md p-4 text-sm text-yellow-800">
+                <div class="inline-block bg-yellow-50 border border-yellow-200 rounded-xl p-3 text-sm text-yellow-800">
                     Status saat ini: <strong>PENDING</strong>
                 </div>
             </div>

@@ -30,7 +30,7 @@
                             <div class="ml-3">
                                 <h3 class="text-sm font-bold text-red-800">Akun Sudah Terdaftar</h3>
                                 <div class="mt-1 text-xs text-red-700">
-                                    <p>Email ini sudah digunakan. Silakan <a href="{{ route('login') }}" class="underline font-bold">Login</a> jika ini akun Anda.</p>
+                                    <p>Email ini sudah digunakan. Silakan <a href="{{ route('login') }}" class="underline font-semibold">Login</a> jika ini akun Anda.</p>
                                 </div>
                             </div>
                         </div>
@@ -40,25 +40,35 @@
                 <form method="POST" action="{{ route('register') }}" class="space-y-5">
                     @csrf
                     
-                    <!-- Nama -->
                     <div>
                         <label for="name" class="block text-sm font-bold text-black mb-2">Nama Lengkap</label>
                         <input id="name" name="name" type="text" required autofocus class="w-full px-5 py-3 rounded-xl bg-gray-50 border border-[#B8948C]/30 text-black focus:outline-none focus:ring-2 focus:ring-[#E73812] focus:bg-white transition" placeholder="Nama Anda">
                     </div>
 
-                    <!-- Email -->
                     <div>
                         <label for="email" class="block text-sm font-bold text-black mb-2">Email Address</label>
                         <input id="email" name="email" type="email" required class="w-full px-5 py-3 rounded-xl bg-gray-50 border border-[#B8948C]/30 text-black focus:outline-none focus:ring-2 focus:ring-[#E73812] focus:bg-white transition" placeholder="nama@email.com">
                     </div>
 
-                    <!-- Password -->
+                    <div>
+                        <label for="role" class="block text-sm font-bold text-black mb-2">Daftar Sebagai</label>
+                        <div class="relative">
+                            <select id="role" name="role" class="w-full px-5 py-3 rounded-xl bg-gray-50 border border-[#B8948C]/30 text-[#E73812] font-semibold text-[13px] focus:outline-none focus:ring-2 focus:ring-[#E73812] focus:bg-white transition appearance-none cursor-pointer">
+                                <option value="user">Pengunjung (User)</option>
+                                <option value="organizer">Event Organizer</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[#E73812]">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-[10px] text-[#B8948C] mt-1 italic ml-1">*Akun Organizer memerlukan persetujuan Admin.</p>
+                    </div>
+
                     <div>
                         <label for="password" class="block text-sm font-bold text-black mb-2">Password</label>
                         <input id="password" name="password" type="password" required autocomplete="new-password" class="w-full px-5 py-3 rounded-xl bg-gray-50 border border-[#B8948C]/30 text-black focus:outline-none focus:ring-2 focus:ring-[#E73812] focus:bg-white transition" placeholder="••••••••">
                     </div>
 
-                    <!-- Confirm Password -->
                     <div>
                         <label for="password_confirmation" class="block text-sm font-bold text-black mb-2">Konfirmasi Password</label>
                         <input id="password_confirmation" name="password_confirmation" type="password" required class="w-full px-5 py-3 rounded-xl bg-gray-50 border border-[#B8948C]/30 text-black focus:outline-none focus:ring-2 focus:ring-[#E73812] focus:bg-white transition" placeholder="••••••••">

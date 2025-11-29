@@ -8,7 +8,6 @@
                 <p class="text-sm text-[#B8948C] mt-1">Pantau performa penjualan tiket event Anda.</p>
             </div>
             
-            <!-- Statistik Ringkas (Opsional) -->
             <div class="flex gap-3">
                 <div class="bg-white px-4 py-2 rounded-xl border border-[#B8948C]/20 shadow-sm flex items-center">
                     <div class="w-2 h-2 rounded-full bg-[#E73812] mr-2 animate-pulse"></div>
@@ -21,28 +20,23 @@
     <div class="py-12 bg-[#FAFAFA] min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <!-- Content Card -->
             <div class="bg-white shadow-2xl shadow-[#E73812]/20 sm:rounded-3xl border-2 border-[#E73812]/20 overflow-hidden">
                 
-                <!-- Table Container -->
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
-                        <!-- Table Header -->
                         <thead class="text-xs text-white uppercase bg-[#E73812]">
                             <tr>
                                 <th class="px-8 py-5 tracking-wider font-bold rounded-tl-3xl">Event</th>
                                 <th class="px-6 py-5 text-center tracking-wider font-bold">Tiket Terjual</th>
                                 <th class="px-8 py-5 text-right tracking-wider font-bold">Total Pendapatan</th>
-                                <th class="px-6 py-5 text-center tracking-wider font-bold rounded-tr-3xl">Detail Peserta</th> <!-- Kolom Baru -->
+                                <th class="px-6 py-5 text-center tracking-wider font-bold rounded-tr-3xl">Detail Peserta</th>
                             </tr>
                         </thead>
                         
-                        <!-- Table Body -->
                         <tbody class="divide-y divide-[#B8948C]/10">
                             @forelse($stats as $stat)
                             <tr class="bg-white hover:bg-[#fff5f2] transition duration-200 group">
                                 
-                                <!-- Column: Event Name -->
                                 <td class="px-8 py-6">
                                     <div class="flex flex-col">
                                         <span class="text-base font-bold text-black group-hover:text-[#E73812] transition">{{ $stat['event_name'] }}</span>
@@ -50,7 +44,6 @@
                                     </div>
                                 </td>
 
-                                <!-- Column: Tickets Sold -->
                                 <td class="px-6 py-6 text-center">
                                     <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold bg-black text-white shadow-md">
                                         <svg class="w-3 h-3 mr-1.5 text-[#E73812]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
@@ -58,17 +51,14 @@
                                     </span>
                                 </td>
 
-                                <!-- Column: Total Revenue -->
                                 <td class="px-8 py-6 text-right">
                                     <span class="block font-bold text-[#E73812] text-lg tracking-tight">
                                         Rp {{ number_format($stat['total_revenue'], 0, ',', '.') }}
                                     </span>
                                 </td>
 
-                                <!-- [NEW] Column: Actions (Lihat Peserta) -->
                                 <td class="px-6 py-6 text-center">
                                     @php
-                                        // Ambil ID event berdasarkan nama (Logic View Only)
                                         $eventModel = \App\Models\Event::where('name', $stat['event_name'])->first();
                                     @endphp
                                     
@@ -81,7 +71,6 @@
                                 </td>
                             </tr>
                             @empty
-                            <!-- Empty State -->
                             <tr>
                                 <td colspan="4" class="px-6 py-20 text-center">
                                     <div class="flex flex-col items-center justify-center">

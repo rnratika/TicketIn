@@ -12,11 +12,8 @@
     
     @include('layouts.navigation')
 
-    <!-- Hero Section -->
     <div class="relative bg-white overflow-hidden">
-        <!-- UPDATED: pt-40 (agar turun dari navbar), pb-10 (jarak bawah dikurangi agar lebih dekat ke event) -->
         <div class="max-w-7xl mx-auto pt-20 pb-10 px-4 sm:px-6 lg:px-8 text-center">
-            <!-- Badge -->
             <span class="inline-block py-1 px-3 rounded-full bg-[#F5CB49]/20 text-[#E08B36] text-xs font-extrabold uppercase tracking-wider mb-6 border border-[#F5CB49]/50">
                 The Best Ticketing Platform
             </span>
@@ -29,7 +26,6 @@
                 Dari konser musik hingga workshop kreatif, temukan dan pesan tiket acara favoritmu dalam hitungan detik.
             </p>
 
-            <!-- Search Bar -->
             <form action="{{ route('home') }}" method="GET" class="max-w-2xl mx-auto relative group">
                 <div class="absolute -inset-1 bg-gradient-to-r from-[#E73812] to-[#F5CB49] rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
                 <div class="relative flex items-center bg-white rounded-full shadow-xl p-2 border border-[#B8948C]/20">
@@ -41,8 +37,6 @@
         </div>
     </div>
 
-    <!-- Event Section -->
-    <!-- UPDATED: pt-8 (jarak atas dikurangi), pb-20 (jarak bawah tetap luas) -->
     <div class="pt-8 pb-20 bg-[#FAFAFA]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-end mb-12">
@@ -56,20 +50,17 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($events as $event)
                 <a href="{{ route('events.show', $event->id) }}" class="group bg-white rounded-3xl shadow-sm border-2 border-[#E73812]/20 hover:shadow-3xl hover:shadow-[#E73812]/20 hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-full">
-                    <!-- Image -->
                     <div class="h-56 relative overflow-hidden">
                         @if($event->image)
                             <img src="{{ asset('storage/' . $event->image) }}" class="w-full h-full object-cover transition duration-700">
                         @else
                             <div class="w-full h-full bg-gray-100 flex items-center justify-center text-[#B8948C]">No Image</div>
                         @endif
-                        <!-- Date Badge -->
                         <div class="absolute top-4 left-4 bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-lg text-sm font-bold text-black shadow-sm">
                             {{ $event->start_time->format('d M Y') }}
                         </div>
                     </div>
                     
-                    <!-- Content -->
                     <div class="p-6 flex-1 flex flex-col">
                         <div class="flex items-center gap-2 text-xs font-bold text-[#E08B36] uppercase tracking-wider mb-2">
                             <span class="w-2 h-2 rounded-full bg-[#E08B36]"></span> Music / Event
