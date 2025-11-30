@@ -8,8 +8,7 @@
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-xl shadow-[#B8948C]/5 sm:rounded-3xl border border-[#B8948C]/20 p-8">
-                
-                <!-- FORM DINAMIS (BISA UNTUK ADMIN & ORGANIZER) -->
+
                 <form action="{{ Auth::user()->role === 'admin' ? route('admin.events.update', $event->id) : route('organizer.events.update', $event->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf @method('PUT')
 

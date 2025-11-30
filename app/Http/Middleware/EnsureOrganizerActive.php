@@ -15,11 +15,9 @@ class EnsureOrganizerActive
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Cek apakah user statusnya active
         if ($request->user() && $request->user()->status !== 'active') {
             return redirect()->route('organizer.pending');
         }
-
         return $next($request);
     }
 }

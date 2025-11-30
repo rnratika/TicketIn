@@ -11,18 +11,15 @@
 <body class="bg-[#FAFAFA] text-black antialiased">
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 px-4 relative overflow-hidden">
         
-        <!-- Dekorasi Background -->
         <div class="absolute -top-24 -left-24 w-96 h-96 bg-[#E73812]/5 rounded-full blur-3xl"></div>
         <div class="absolute top-1/2 -right-24 w-64 h-64 bg-[#F5CB49]/10 rounded-full blur-3xl"></div>
 
-        <!-- Logo -->
         <div class="mb-8 text-center relative z-10">
             <a href="/" class="text-5xl font-extrabold tracking-tighter">
                 <span class="text-[#E73812]">Ticket</span><span class="text-black">In</span><span class="text-black">.</span>
             </a>
         </div>
 
-        <!-- Card Container -->
         <div class="w-full sm:max-w-md px-8 py-10 bg-white shadow-2xl shadow-[#B8948C]/10 overflow-hidden sm:rounded-3xl border border-[#B8948C]/20 relative z-10">
             
             <div class="mb-8 text-center">
@@ -35,7 +32,6 @@
                 </p>
             </div>
 
-            <!-- Session Status -->
             @if (session('status'))
                 <div class="mb-6 font-medium text-sm text-green-700 bg-green-50 p-4 rounded-xl border border-green-200 text-center shadow-sm">
                     {{ session('status') }}
@@ -45,7 +41,6 @@
             <form method="POST" action="{{ route('password.email') }}" class="space-y-6">
                 @csrf
 
-                <!-- Email Address -->
                 <div>
                     <label for="email" class="block text-sm font-bold text-black mb-2">Email Address</label>
                     <input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus

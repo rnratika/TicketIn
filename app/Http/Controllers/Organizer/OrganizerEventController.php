@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Organizer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
-use App\Models\Booking; // <--- BARIS INI YANG SEBELUMNYA KURANG
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB; // Diperlukan untuk transaksi database
+use Illuminate\Support\Facades\DB; 
 
 class OrganizerEventController extends Controller
 {
-    // Menampilkan Event milik Organizer sendiri
     public function index()
     {
         $events = Event::where('organizer_id', auth()->id())->latest()->get();
@@ -23,7 +22,6 @@ class OrganizerEventController extends Controller
         return view('organizer.events.create');
     }
 
-    // Simpan Event + Tiket sekaligus
     public function store(Request $request)
     {
         $request->validate([
@@ -32,7 +30,7 @@ class OrganizerEventController extends Controller
             'start_time' => 'required|date',
             'location' => 'required|string',
             'image' => 'nullable|image|max:2048',
-            // Validasi Array Tiket
+
             'tickets' => 'required|array|min:1',
             'tickets.*.name' => 'required|string',
             'tickets.*.price' => 'required|numeric|min:0',
@@ -44,7 +42,6 @@ class OrganizerEventController extends Controller
             $imagePath = $request->file('image')->store('events', 'public');
         }
 
-        // 1. Buat Event
         $event = Event::create([
             'organizer_id' => auth()->id(),
             'name' => $request->name,
@@ -54,7 +51,6 @@ class OrganizerEventController extends Controller
             'image' => $imagePath,
         ]);
 
-        // 2. Buat Tiket
         foreach ($request->tickets as $ticketData) {
             $event->tickets()->create($ticketData);
         }
@@ -81,7 +77,6 @@ class OrganizerEventController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
             if ($event->image) Storage::disk('public')->delete($event->image);
             $event->image = $request->file('image')->store('events', 'public');
         }
@@ -101,17 +96,12 @@ class OrganizerEventController extends Controller
         return back()->with('success', 'Event dihapus.');
     }
 
-    // --- FITUR BARU: LIHAT PESERTA & APPROVAL ---
-
-    // Halaman List Peserta
     public function attendees(Event $event)
     {
-        // Pastikan event milik organizer ini
         if ($event->organizer_id !== auth()->id()) {
             abort(403);
         }
 
-        // Ambil booking terkait event ini
         $bookings = Booking::whereHas('ticket', function($q) use ($event) {
             $q->where('event_id', $event->id);
         })->with(['user', 'ticket'])->latest()->get();
@@ -119,10 +109,8 @@ class OrganizerEventController extends Controller
         return view('organizer.events.attendees', compact('event', 'bookings'));
     }
 
-    // Approve Pesanan
     public function approveBooking(Booking $booking)
     {
-        // Validasi kepemilikan event
         if ($booking->ticket->event->organizer_id !== auth()->id()) {
             abort(403);
         }
@@ -131,7 +119,6 @@ class OrganizerEventController extends Controller
         return back()->with('success', 'Pesanan disetujui.');
     }
 
-    // Reject Pesanan
     public function rejectBooking(Booking $booking)
     {
         if ($booking->ticket->event->organizer_id !== auth()->id()) {
@@ -140,14 +127,11 @@ class OrganizerEventController extends Controller
 
         DB::transaction(function () use ($booking) {
             $booking->update(['status' => 'rejected']);
-            // Kembalikan kuota
             $booking->ticket->increment('quota', $booking->quantity);
         });
 
         return back()->with('success', 'Pesanan ditolak dan kuota dikembalikan.');
     }
-
-    // Helper function untuk keamanan
     private function authorizeAccess($event)
     {
         if ($event->organizer_id !== auth()->id()) {

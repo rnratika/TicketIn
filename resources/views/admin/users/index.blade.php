@@ -32,11 +32,9 @@
                 </div>
             @endif
 
-            <!-- Content Card -->
             <div class="bg-white shadow-2xl shadow-[#E73812]/20 sm:rounded-3xl border-2 border-[#E73812]/20 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
-                        <!-- Table Header -->
                         <thead class="text-xs text-white uppercase bg-[#E73812]">
                             <tr>
                                 <th class="px-8 py-5 tracking-wider font-bold rounded-tl-3xl">Nama</th>
@@ -46,13 +44,11 @@
                                 <th class="px-6 py-5 text-center tracking-wider font-bold rounded-tr-3xl">Aksi</th>
                             </tr>
                         </thead>
-                        
-                        <!-- Table Body -->
+
                         <tbody class="divide-y divide-[#B8948C]/10">
                             @forelse($users as $user)
                             <tr class="bg-white hover:bg-[#fff5f2] transition duration-200 group">
-                                
-                                <!-- Nama -->
+
                                 <td class="px-8 py-6">
                                     <div class="flex items-center">
                                         <div class="w-10 h-10 rounded-full bg-[#E73812]/20 border border-[#E73812] flex items-center justify-center text-[#E73812] font-bold mr-3">
@@ -62,12 +58,10 @@
                                     </div>
                                 </td>
 
-                                <!-- Email -->
                                 <td class="px-6 py-6 font-medium text-[#B8948C]">
                                     {{ $user->email }}
                                 </td>
 
-                                <!-- Role -->
                                 <td class="px-6 py-6 capitalize">
                                     @if($user->role === 'organizer')
                                         <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold bg-[#E73812]/10 text-[#E73812] border border-[#E73812]/20">
@@ -84,7 +78,6 @@
                                     @endif
                                 </td>
 
-                                <!-- Status -->
                                 <td class="px-6 py-6 text-center">
                                     @if($user->status == 'active')
                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700 border border-green-200">
@@ -101,7 +94,6 @@
                                     @endif
                                 </td>
 
-                                <!-- Aksi -->
                                 <td class="px-6 py-6 text-center">
                                     <div class="flex items-center justify-center space-x-2">
                                         

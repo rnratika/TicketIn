@@ -10,8 +10,7 @@
 </head>
 <body class="bg-[#FAFAFA] text-black antialiased">
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 px-4 relative overflow-hidden">
-        
-        <!-- Dekorasi Background -->
+
         <div class="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-[#E73812] via-[#E08B36] to-[#F5CB49]"></div>
 
         <div class="mb-8 text-center">
@@ -31,8 +30,6 @@
                 @csrf
 
                 <input type="hidden" name="token" value="{{ $request->route('token') }}">
-
-                <!-- Email -->
                 <div>
                     <label for="email" class="block text-sm font-bold text-black mb-2">Email Address</label>
                     <input id="email" name="email" type="email" value="{{ old('email', $request->email) }}" required autofocus
@@ -43,7 +40,6 @@
                     @enderror
                 </div>
 
-                <!-- Password -->
                 <div>
                     <label for="password" class="block text-sm font-bold text-black mb-2">Password Baru</label>
                     <input id="password" name="password" type="password" required autocomplete="new-password"
@@ -54,7 +50,6 @@
                     @enderror
                 </div>
 
-                <!-- Confirm Password -->
                 <div>
                     <label for="password_confirmation" class="block text-sm font-bold text-black mb-2">Konfirmasi Password</label>
                     <input id="password_confirmation" name="password_confirmation" type="password" required autocomplete="new-password"

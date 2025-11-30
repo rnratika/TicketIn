@@ -7,7 +7,7 @@ use App\Models\Event;
 use App\Models\Booking;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage; // untuk hapus gambar
+use Illuminate\Support\Facades\Storage;
 
 class AdminEventController extends Controller
 {
@@ -17,11 +17,17 @@ class AdminEventController extends Controller
         return view('admin.events.index', compact('events'));
     }
 
-    public function destroy(Event $event)
+        public function destroy(Event $event)
     {
-        if ($event->image) Storage::disk('public')->delete($event->image); 
+        if ($event->organizer_id !== auth()->id()) {
+            return back()->with('error', 'Akses Ditolak: Anda hanya dapat menghapus acara yang Anda buat sendiri.');
+        }
+
+        if ($event->image) Storage::disk('public')->delete($event->image);
+        
         $event->delete();
-        return back()->with('success', 'Event berhasil dihapus oleh Admin.');
+        
+        return back()->with('success', 'Event berhasil dihapus.');
     }
 
     public function reports()
@@ -85,13 +91,11 @@ class AdminEventController extends Controller
             'image' => 'nullable|image|max:2048',
         ]);
 
-        // upload gambar baru
         if ($request->hasFile('image')) {
             if ($event->image) Storage::disk('public')->delete($event->image);
             $event->image = $request->file('image')->store('events', 'public');
         }
 
-        // update data event
         $event->update($request->only(['name', 'description', 'start_time', 'location', 'image']));
 
         return redirect()->route('admin.events.index')->with('success', 'Event berhasil diperbarui oleh Admin.');

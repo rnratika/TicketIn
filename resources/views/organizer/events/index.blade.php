@@ -7,8 +7,7 @@
 
     <div class="py-12 bg-[#FAFAFA] min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <!-- Success Message -->
+
             @if(session('success'))
                 <div class="mb-6 bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-r-xl shadow-sm flex items-center justify-between">
                     <div class="flex items-center">
@@ -21,8 +20,6 @@
                 </div>
             @endif
 
-            <!-- ACTION BAR (TOMBOL CREATE) -->
-            <!-- Posisi di sini menjamin tombol selalu muncul -->
             <div class="flex flex-col md:flex-row justify-between items-end md:items-center mb-6 gap-4">
                 <div>
                     <h3 class="text-lg font-bold text-black">Daftar Event Anda</h3>
@@ -37,13 +34,10 @@
                 </a>
             </div>
 
-            <!-- Content Card -->
             <div class="bg-white shadow-2xl shadow-[#E73812]/20 sm:rounded-3xl border-2 border-[#E73812]/20 overflow-hidden">
-                
-                <!-- Table Container -->
+
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
-                        <!-- Table Header -->
                         <thead class="text-xs text-white uppercase bg-[#E73812]">
                             <tr>
                                 <th class="px-8 py-5 tracking-wider font-bold">Nama Event</th>
@@ -52,13 +46,11 @@
                                 <th class="px-6 py-5 text-center tracking-wider font-bold">Aksi</th>
                             </tr>
                         </thead>
-                        
-                        <!-- Table Body -->
+
                         <tbody class="divide-y divide-[#B8948C]/10">
                             @forelse($events as $event)
                             <tr class="bg-white hover:bg-[#fff5f2] transition duration-200 group">
-                                
-                                <!-- Column: Event Name & Image -->
+
                                 <td class="px-8 py-6">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-16 w-16 relative overflow-hidden rounded-xl border border-[#B8948C]/20 shadow-sm group-hover:shadow-md transition">
@@ -75,7 +67,6 @@
                                     </div>
                                 </td>
 
-                                <!-- Column: Date -->
                                 <td class="px-6 py-6">
                                     <div class="flex flex-col">
                                         <span class="text-sm font-bold text-black">{{ $event->start_time->format('d M Y') }}</span>
@@ -83,7 +74,6 @@
                                     </div>
                                 </td>
 
-                                <!-- Column: Location -->
                                 <td class="px-6 py-6">
                                     <div class="flex items-center text-sm font-medium text-black">
                                         <svg class="flex-shrink-0 mr-1.5 h-4 w-4 text-[#E73812]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -91,15 +81,12 @@
                                     </div>
                                 </td>
 
-                                <!-- Column: Actions -->
                                 <td class="px-6 py-6 text-center">
                                     <div class="flex items-center justify-center space-x-3">
-                                        <!-- Edit Button -->
                                         <a href="{{ route('organizer.events.edit', $event->id) }}" class="p-2 rounded-lg text-[#E08B36] hover:bg-[#E08B36] hover:text-white border border-[#E08B36]/30 transition tooltip" title="Edit">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                         </a>
 
-                                        <!-- Delete Button -->
                                         <form action="{{ route('organizer.events.destroy', $event->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus event ini? Data tidak dapat dikembalikan.');">
                                             @csrf @method('DELETE')
                                             <button type="submit" class="p-2 rounded-lg text-red-500 hover:bg-red-500 hover:text-white border border-red-200 transition tooltip" title="Hapus">
@@ -110,7 +97,6 @@
                                 </td>
                             </tr>
                             @empty
-                            <!-- Empty State -->
                             <tr>
                                 <td colspan="4" class="px-6 py-20 text-center">
                                     <div class="flex flex-col items-center justify-center">
@@ -119,10 +105,6 @@
                                         </div>
                                         <h3 class="text-lg font-bold text-black">Belum ada event</h3>
                                         <p class="text-[#B8948C] text-sm mt-1 mb-6">Mulai buat pengalaman tak terlupakan sekarang.</p>
-                                        <!-- Tombol ini tetap ada di empty state sebagai alternatif -->
-                                        <a href="{{ route('organizer.events.create') }}" class="text-[#E73812] font-bold hover:underline flex items-center">
-                                            Buat Event Pertama Anda &rarr;
-                                        </a>
                                     </div>
                                 </td>
                             </tr>

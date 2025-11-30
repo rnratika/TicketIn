@@ -11,10 +11,8 @@
 <body class="bg-white h-screen overflow-hidden">
     <div class="w-full h-full flex">
         
-        <!-- KIRI: Image Visual -->
         <div class="hidden lg:block w-1/2 h-full relative">
             <img src="/img/c4.jpeg" class="w-full h-full object-cover" alt="Concert">
-            <!-- Overlay Gradient: Merah ke Hitam -->
             <div class="absolute inset-0 bg-gradient-to-tr from-black/80 via-[#E73812]/60 to-[#E08B36]/40 mix-blend-multiply"></div>
             <div class="absolute bottom-0 left-0 p-16 text-white">
                 <h2 class="text-5xl font-extrabold mb-4 leading-tight">Feel the <br><span class="text-[#F5CB49]">Energy.</span></h2>
@@ -22,7 +20,6 @@
             </div>
         </div>
 
-        <!-- KANAN: Form -->
         <div class="w-full lg:w-1/2 h-full flex items-center justify-center bg-white px-8">
             <div class="w-full max-w-md">
                 <a href="/" class="inline-block mb-10">

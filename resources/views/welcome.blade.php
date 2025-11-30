@@ -62,11 +62,14 @@
                     </div>
                     
                     <div class="p-6 flex-1 flex flex-col">
-                        <div class="flex items-center gap-2 text-xs font-bold text-[#E08B36] uppercase tracking-wider mb-2">
-                            <span class="w-2 h-2 rounded-full bg-[#E08B36]"></span> Music / Event
-                        </div>
                         <h3 class="text-xl font-bold text-black mb-2 line-clamp-2 group-hover:text-[#E73812] transition">{{ $event->name }}</h3>
-                        <p class="text-[#B8948C] text-sm line-clamp-2 mb-4 flex-1 font-medium">{{ $event->description }}</p>
+
+                        <div class="flex items-center text-[#B8948C] text-xs font-bold mb-3">
+                            <svg class="w-4 h-4 mr-1.5 text-[#E73812]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            {{ $event->location }}
+                        </div>
+
+                        <p class="text-[#B8948C] text-sm line-clamp-2 flex-1 font-medium">{{ $event->description }}</p>
                         
                         <div class="border-t border-gray-100 pt-4 flex items-center justify-between mt-auto">
                             <div class="flex items-center gap-2">

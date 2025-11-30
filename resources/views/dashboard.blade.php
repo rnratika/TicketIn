@@ -7,24 +7,19 @@
 
     <div class="py-12 bg-[#FAFAFA] min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <!-- Welcome Banner -->
-            <!-- Style disamakan dengan nuansa premium: Gradient Gelap + Aksen Merah -->
+
             <div class="bg-gradient-to-r from-[#E73812] to-[#F5CB49] rounded-3xl p-10 text-white shadow-2xl shadow-[#E73812]/30 mb-10 relative overflow-hidden border border-[#B8948C]/10">
                 <div class="relative z-10">
                     <h3 class="text-4xl font-bold mb-2 tracking-tight">Halo, {{ Auth::user()->name }}!</h3>
                     <p class="text-white font-medium text-lg">Selamat datang kembali di TicketIn.</p>
                 </div>
-                
-                <!-- Dekorasi Background -->
+
                 <div class="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-[#E73812]/20 to-transparent pointer-events-none"></div>
                 <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-[#F5CB49] rounded-full blur-3xl opacity-5 pointer-events-none"></div>
             </div>
 
-            <!-- Content Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <!-- Card 1: Role -->
+
                 <div class="bg-white p-8 rounded-3xl shadow-xl shadow-[#B8948C]/5 border border-[#B8948C]/20 hover:shadow-2xl transition duration-300 group relative overflow-hidden">
                     <div class="flex items-center justify-between mb-6 relative z-10">
                         <h4 class="text-[#B8948C] font-bold text-xs uppercase tracking-widest">Role Anda</h4>
@@ -40,7 +35,6 @@
                     </div>
                 </div>
 
-                <!-- Card 2: Status -->
                 <div class="bg-white p-8 rounded-3xl shadow-xl shadow-[#B8948C]/5 border border-[#B8948C]/20 hover:shadow-2xl transition duration-300 group relative overflow-hidden">
                     <div class="flex items-center justify-between mb-6 relative z-10">
                         <h4 class="text-[#B8948C] font-bold text-xs uppercase tracking-widest">Status Akun</h4>
@@ -56,10 +50,8 @@
                     </div>
                 </div>
 
-                <!-- Card 3: Settings (Action) -->
                 <a href="{{ route('profile.edit') }}" class="group bg-white p-8 rounded-3xl shadow-xl shadow-[#B8948C]/5 border border-[#B8948C]/20 hover:border-[#E73812] transition duration-300 cursor-pointer relative overflow-hidden">
-                    <!-- Dekorasi Hover -->
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#E73812]/5 rounded-3x1 transition duration-500 group-hover:bg-[#E73812]/10"></div>
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#E73812]/5 rounded-3xl transition duration-500 group-hover:bg-[#E73812]/10"></div>
                     
                     <div class="flex items-center justify-between mb-6 relative z-10">
                         <h4 class="text-[#B8948C] font-bold text-xs uppercase tracking-widest group-hover:text-[#E73812] transition">Pengaturan</h4>

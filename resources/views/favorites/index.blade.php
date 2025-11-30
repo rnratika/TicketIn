@@ -7,8 +7,7 @@
                 </h2>
                 <p class="text-sm text-[#B8948C] mt-1">Daftar event yang telah Anda simpan.</p>
             </div>
-            
-            <!-- Statistik Ringkas -->
+
             <div class="hidden md:flex gap-3">
                 <div class="bg-white px-4 py-2 rounded-xl border border-[#B8948C]/20 shadow-sm flex items-center">
                     <div class="w-2 h-2 rounded-full bg-[#E73812] mr-2 animate-pulse"></div>
@@ -33,12 +32,10 @@
                 </div>
             @endif
 
-            <!-- Content Card (Style Table Organizer) -->
             <div class="bg-white shadow-2xl shadow-[#E73812]/20 sm:rounded-3xl border-2 border-[#E73812]/20 overflow-hidden">
                 
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
-                        <!-- Table Header -->
                         <thead class="text-xs text-white uppercase bg-[#E73812]">
                             <tr>
                                 <th class="px-8 py-5 tracking-wider font-bold rounded-tl-3xl">Event Detail</th>
@@ -47,13 +44,11 @@
                                 <th class="px-6 py-5 text-center tracking-wider font-bold rounded-tr-3xl">Aksi</th>
                             </tr>
                         </thead>
-                        
-                        <!-- Table Body -->
+
                         <tbody class="divide-y divide-[#B8948C]/10">
                             @forelse($events as $event)
                             <tr class="bg-white hover:bg-[#fff5f2] transition duration-200 group">
-                                
-                                <!-- Column: Event Name & Image -->
+
                                 <td class="px-8 py-6">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-16 w-16 relative overflow-hidden rounded-xl border border-[#B8948C]/20 shadow-sm group-hover:shadow-md transition">
@@ -77,7 +72,6 @@
                                     </div>
                                 </td>
 
-                                <!-- Column: Date -->
                                 <td class="px-6 py-6">
                                     <div class="flex flex-col">
                                         <span class="text-sm font-bold text-black">{{ $event->start_time->format('d M Y') }}</span>
@@ -85,7 +79,6 @@
                                     </div>
                                 </td>
 
-                                <!-- Column: Location -->
                                 <td class="px-6 py-6">
                                     <div class="flex items-center text-sm font-medium text-black">
                                         <svg class="flex-shrink-0 mr-1.5 h-4 w-4 text-[#E73812]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -93,15 +86,12 @@
                                     </div>
                                 </td>
 
-                                <!-- Column: Actions -->
                                 <td class="px-6 py-6 text-center">
                                     <div class="flex items-center justify-center space-x-3">
-                                        <!-- View Detail -->
                                         <a href="{{ route('events.show', $event->id) }}" class="p-2 rounded-lg text-[#E73812] hover:bg-[#E73812] hover:text-white border border-[#E73812]/30 transition tooltip group/btn" title="Lihat Detail">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                         </a>
 
-                                        <!-- Remove Favorite -->
                                         <form action="{{ route('favorites.toggle', $event->id) }}" method="POST">
                                             @csrf
                                             <button type="submit" class="p-2 rounded-lg text-red-500 hover:bg-red-500 hover:text-white border border-red-200 transition tooltip group/btn" title="Hapus dari Favorit">
@@ -112,7 +102,7 @@
                                 </td>
                             </tr>
                             @empty
-                            <!-- Empty State -->
+
                             <tr>
                                 <td colspan="4" class="px-6 py-24 text-center">
                                     <div class="flex flex-col items-center justify-center">

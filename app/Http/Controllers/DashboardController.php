@@ -11,17 +11,15 @@ class DashboardController extends Controller
         $user = auth()->user();
 
         if ($user->role === 'admin') {
-            return redirect()->route('admin.users.index'); // Admin ke User Management
+            return redirect()->route('admin.users.index');
         } 
         elseif ($user->role === 'organizer') {
-            // Cek status approval organizer
             if ($user->status === 'pending') return redirect()->route('organizer.pending');
             if ($user->status === 'rejected') return redirect()->route('organizer.rejected');
             
-            return redirect()->route('organizer.events.index'); // Organizer ke Event Management
+            return redirect()->route('organizer.events.index');
         }
 
-        // Regular User
-        return view('dashboard'); // Dashboard user biasa
+        return view('dashboard');
     }
 }

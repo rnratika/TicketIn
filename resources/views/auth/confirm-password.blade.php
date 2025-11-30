@@ -10,8 +10,7 @@
 </head>
 <body class="bg-[#FAFAFA] text-black antialiased">
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 px-4 relative">
-        
-        <!-- Dekorasi Sudut -->
+
         <div class="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-[#E73812]/10 to-transparent"></div>
         <div class="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-[#F5CB49]/10 to-transparent"></div>
 

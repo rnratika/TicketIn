@@ -12,8 +12,8 @@
     <div class="w-full h-full flex">
         
         <div class="w-full lg:w-1/2 h-full flex items-center justify-center bg-white px-8 overflow-y-auto">
-            <div class="w-full max-w-md py-10">
-                <a href="/" class="inline-block mb-4">
+            <div class="w-full max-w-md pt-28 pb-10">
+                <a href="/" class="inline-block mb-2">
                     <span class="text-5xl font-extrabold tracking-tighter">
                         <span class="text-[#E73812]">Ticket</span><span class="text-black">In</span><span class="text-black">.</span>
                     </span>

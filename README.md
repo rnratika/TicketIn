@@ -1,59 +1,251 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# TicketIn : Modern E-Ticketing Event System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![TicketIn Banner](public/img/ticketin.jpg)
 
-## About Laravel
+**TicketIn** adalah platform manajemen acara dan pemesanan tiket (e-ticketing) berbasis web yang dirancang untuk memfasilitasi untuk mengelola acara (event) yang memungkinkan admin, event organizer, dan pengunjung untuk berinteraksi dengan mudah dalam manajemen acara dan pemesanan tiket. Dibangun dengan Laravel 12, pada aplikasi ini admin memiliki akses penuh untuk mengelola acara, pengguna, dan melihat laporan penjualan, sementara organizer dapat menambah, memperbarui, serta melihat pemesanan untuk acara mereka. Pengunjung terdaftar dapat memesan tiket, melihat riwayat pemesanan, serta menyimpan acara favorit.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Daftar Isi
+- [Fitur Utama](#-fitur-utama)
+- [Teknologi yang Digunakan](#-teknologi-yang-digunakan)
+- [Persyaratan Sistem](#-persyaratan-sistem)
+- [Instalasi & Konfigurasi](#-instalasi--konfigurasi)
+- [Panduan Penggunaan (User Guide)](#-panduan-penggunaan-user-guide)
+- [Struktur Proyek](#-project-structure)
+- [Lisensi](#-lisensi)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ⚙️ Fitur Utama
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 1. Multi-User & Role Management
+- **Admin:** Superuser dengan kontrol penuh (CRUD User, Approve Organizer, Hapus Event, Laporan Global).
+- **Event Organizer (EO):** Manajemen acara mandiri, monitoring penjualan, approval peserta manual.
+- **User:** Pencarian acara, booking tiket, riwayat transaksi, tiket digital, dan sistem favorit.
+- **Guest:** Akses publik untuk melihat katalog acara.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Manajemen Acara Canggih
+- **Multi-Ticket System:** Satu acara bisa memiliki banyak jenis tiket (VIP, Regular, Early Bird) dengan harga dan kuota berbeda.
+- **Rich Event Details:** Deskripsi lengkap, lokasi, waktu, dan banner visual.
+- **Validasi Ketat:** Mencegah overbooking dan input data yang tidak valid.
 
-## Laravel Sponsors
+### 3. Sistem Booking & Approval
+- **Alur Transaksi Aman:** Booking mengurangi kuota secara *real-time* (Database Transaction).
+- **Manual Approval:** Organizer memiliki kendali penuh untuk menyetujui atau menolak pesanan masuk.
+- **Tiket Digital:** E-Ticket otomatis terbit setelah disetujui, dilengkapi QR Code simulasi dan fitur cetak (Print-friendly).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 4. Review & Rating
+- **Sistem ulasan**: Hanya pengguna yang telah membeli tiket dan statusnya *Approved* yang bisa memberikan rating bintang dan komentar.
 
-### Premium Partners
+### 5. Laporan & Analitik
+- **Dashboard analitik:** Ringkasan visual total pendapatan dan tiket terjual.
+- **Laporan Detail:** Tabel rinci per event untuk Organizer dan Admin.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 🛠 Teknologi yang Digunakan
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Backend:** Laravel 12 (PHP Framework)
+- **Database:** MySQL
+- **Frontend:** Blade Templating, Tailwind CSS (v3)
+- **Scripting:** Alpine.js
+- **Authentication:** Laravel Breeze
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 💻 Persyaratan Sistem
 
-## Security Vulnerabilities
+Sebelum memulai, pastikan sistem Anda memenuhi syarat berikut:
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- MySQL Database
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 🚀 Instalasi & Konfigurasi
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Ikuti langkah-langkah ini untuk menjalankan proyek di komputer lokal Anda:
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/rnratika/ticketin.git
+cd ticketin
+```
+
+### 2. Install Dependencies
+
+```bash
+# Install paket PHP dan JavaScript yang dibutuhkan.
+composer install
+npm install
+```
+### 3. Konfigurasi Environment
+
+Salin file .env.example menjadi .env dan sesuaikan konfigurasi database Anda.
+```bash
+cp .env.example .env
+```
+
+Buka file .env dan ubah bagian ini:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ticketin_db
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+### 4. Generate Key & Migrate
+
+```bash
+php artisan key:generate
+php artisan migrate:fresh --seed
+php artisan storage:link
+```
+
+### 5. Jalankan Aplikasi
+
+```bash
+# Build Frontend
+npm run dev
+
+# Jalankan Server
+php artisan serve
+```
+Akses aplikasi di browser melalui: http://127.0.0.1:8000
+
+---
+
+## 📖 Panduan Penggunaan (User Guide)
+
+### A. Login Akun Demo
+
+Setelah anda menjalankan seeder, login dengan akun berikut.
+
+**Super Admin:** 
+- email: admin@ticketin.com
+- password : password
+
+**Event Organizer:** 
+- email: eo@ticketin.com
+- password : password
+
+**User:** 
+- email: user@ticketin.com
+- password : password
+
+### B. Alur Kerja Utama (Workflow)
+
+**1. Registrasi Event Organizer (EO) Baru**
+- Buka halaman Register.
+- Isi data diri dan pilih "Daftar Sebagai: Event Organizer".
+- Setelah daftar, Anda akan diarahkan ke halaman "Menunggu Persetujuan".
+- Login sebagai Admin -> Masuk ke menu Users -> Klik Approve pada user tersebut.
+- EO baru sekarang bisa login dan membuat event.
+
+**2. Membuat Acara (Organizer)**
+- Login sebagai Organizer.
+- Masuk ke menu My Events -> Klik Buat Event Baru.
+- Isi detail acara, upload banner, dan tambahkan jenis tiket (bisa lebih dari satu).
+- Klik Simpan. Acara langsung tayang di halaman depan.
+
+**3. Memesan Tiket (User)**
+- Login sebagai User.
+- Pilih acara di Halaman Depan -> Klik Beli Tiket.
+- Masukkan jumlah tiket -> Klik Beli.
+- Status pesanan akan menjadi Pending.
+
+**4. Verifikasi Pesanan (Organizer)**
+- Organizer melihat notifikasi/laporan di menu Sales atau My Events.
+- Klik tombol Lihat Peserta pada event terkait.
+- Klik Approve (Centang Hijau) untuk menerima pesanan.
+- Stok tiket otomatis berkurang permanen.
+
+**5. Mengakses Tiket Digital (User)**
+- User kembali ke menu My Tickets.
+- Status berubah menjadi Berhasil.
+- Klik tombol Lihat E-Ticket.
+- Tiket digital dengan QR Code muncul dan siap dicetak (Klik tombol "Cetak Tiket").
+
+---
+
+## 💾 Struktur Proyek
+```
+ticketin/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Admin/
+│   │   │   │   └── AdminEventController.php
+│   │   │   │   └── AdminUserController.php
+│   │   │   ├── Auth/                  
+│   │   │   ├── Organizer/             
+│   │   │   │   ├── OrganizerEventController.php
+│   │   │   │   ├── OrganizerReportController.php
+│   │   │   │   └── OrganizerStatusController.php
+│   │   │   ├── BookingController.php
+│   │   │   ├── DashboardController.php
+│   │   │   ├── FavoriteController.php
+│   │   │   ├── HomeController.php
+│   │   │   ├── ProfileController.php
+│   │   │   └── ReviewController.php 
+│   │   └── Middleware/
+│   │       ├── EnsureOrganizerActive.php
+│   │       └── RoleMiddleware.php
+│   │   └── Requests/
+│   └── Models/
+│       ├── Booking.php
+│       ├── Event.php
+│       ├── Review.php
+│       ├── Ticket.php
+│       └── User.php
+├── database/
+│   ├── migrations/
+│   └── seeders/
+│       └── DatabaseSeeder.php
+├── resources/
+│   ├── css/
+│   ├── js/
+│   ├── views/
+│   │   ├── admin/
+│   │   ├── auth/
+│   │   ├── bookings/
+│   │   ├── components/
+│   │   ├── events/
+│   │   ├── favorites/
+│   │   ├── layouts/
+│   │   ├── organizer/
+│   │   ├── profile/
+│   │   ├── dashboard.blade.php
+│   │   └── home.blade.php
+├── routes/
+│   ├── web.php
+│   └── auth.php
+├── .env.example
+├── composer.json
+├── package.json
+└── README.md
+```
+
+---
+
+## 🔖 Lisensi
+- Desain UI: Custom Tailwind CSS dengan tema Glassmorphism.
+- Icons: Heroicons (via SVG).
+- Font: Poppins (Google Fonts).
+- Images: Aset Pribadi (Disimpan di folder public/img).
+
+<div align="center">
+&copy; 2025 TicketIn. All rights reserved.
+</div>
+
+
+
+
+
+
+
+

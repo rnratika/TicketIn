@@ -10,20 +10,17 @@
                         </h1>
 
                         <div class="flex flex-wrap items-center gap-5">
-                            
-                            <!-- Tanggal Pill -->
+
                             <div class="flex items-center bg-white border-2 border-[#E73812]/20 px-4 py-2 rounded-full shadow-sm">
                                 <svg class="w-5 h-5 text-[#E73812] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                 <span class="text-sm font-bold text-gray-700">{{ $event->start_time->format('d M Y, H:i') }}</span>
                             </div>
 
-                            <!-- Lokasi Pill -->
                             <div class="flex items-center bg-white border-2 border-[#E73812]/20 px-4 py-2 rounded-full shadow-sm">
                                 <svg class="w-5 h-5 text-[#E73812] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 <span class="text-sm font-bold text-gray-700">{{ $event->location }}</span>
                             </div>
 
-                            <!-- Organizer Section -->
                             <div class="flex items-center gap-2 ml-2 pl-4 border-l-2 border-[#E73812]/20">
                                 <div class="w-8 h-8 rounded-full bg-[#E73812] flex items-center justify-center text-white font-bold text-sm">
                                     {{ substr($event->organizer->name, 0, 1) }}
@@ -84,7 +81,6 @@
                             @endif
                         @endauth
 
-                        <!-- List Review -->
                         <div class="space-y-6 pl-5">
                             @forelse($event->reviews->sortByDesc('created_at') as $review)
                                 <div class="flex gap-4 pb-6 border-b border-[#B8948C]/10 last:border-0 last:pb-0">
@@ -134,12 +130,20 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="bg-white shadow-xl shadow-[#E73812]/10 rounded-[2rem] p-7 border-2 border-[#E73812]/20 sticky top-20">
+                        @php($eventHasPassed = $event->start_time->isPast())
                         <div class="flex items-center justify-between border-b border-[#B8948C]/10 pb-2">
                             <h3 class="text-2xl font-extrabold text-black">Pilih Tiket</h3>
-                            <span class="bg-[#fff5f2] text-[#E73812] px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider border border-[#E73812]/10">
-                                Available
-                            </span>
+                            @if($eventHasPassed)
+                                <span class="bg-gray-100 text-gray-500 px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider border border-gray-200">
+                                    Event Selesai
+                                </span>
+                            @else
+                                <span class="bg-[#fff5f2] text-[#E73812] px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider border border-[#E73812]/10">
+                                    Available
+                                </span>
+                            @endif
                         </div>
                         
                         @if(session('success')) 
@@ -154,11 +158,11 @@
                                 <div class="group border border-[#B8948C]/20 rounded-2xl p-6 hover:border-[#E73812] hover:bg-[#fff5f2] transition bg-[#FAFAFA] relative overflow-hidden">
                                     <div class="flex justify-between items-center mb-4 relative z-10">
                                         <div>
-                                            <h4 class="font-extrabold text-lg text-black group-hover:text-[#E73812] transition">{{ $ticket->name }}</h4>
+                                            <h4 class="font-bold text-lg text-black group-hover:text-[#E73812] transition">{{ $ticket->name }}</h4>
                                             <p class="text-xs text-[#B8948C] font-bold uppercase mt-1 tracking-wide">Sisa: <span class="{{ $ticket->quota < 10 ? 'text-red-500' : 'text-black' }}">{{ $ticket->quota }}</span></p>
                                         </div>
                                         <div class="text-right">
-                                            <span class="block font-extrabold text-[#E73812] text-xl">
+                                            <span class="block font-bold text-[#E73812] text-xl">
                                                 {{ $ticket->price == 0 ? 'FREE' : 'Rp '.number_format($ticket->price/1000, 0, ',', '.').'k' }}
                                             </span>
                                         </div>
@@ -166,7 +170,11 @@
                                     
                                     @auth
                                         @if(auth()->user()->role == 'user')
-                                            @if($ticket->quota > 0)
+                                            @if($eventHasPassed)
+                                                <button disabled class="w-full bg-gray-200 text-gray-400 font-bold py-3 rounded-xl cursor-not-allowed text-sm">
+                                                    Event Telah Berakhir
+                                                </button>
+                                            @elseif($ticket->quota > 0)
                                                 <form action="{{ route('booking.store', $ticket->id) }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="quantity" value="1">
@@ -175,7 +183,7 @@
                                                     </button>
                                                 </form>
                                             @else
-                                                <button disabled class="w-full bg-gray-200 text-gray-400 font-bold py-3 rounded-xl cursor-not-allowed text-sm">
+                                                <button disabled class="w-full bg-gray-200 text-gray-500 font-bold py-3 rounded-xl cursor-not-allowed text-sm">
                                                     Habis Terjual
                                                 </button>
                                             @endif
@@ -194,7 +202,7 @@
                             <form action="{{ route('favorites.toggle', $event->id) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="w-full flex items-center justify-center gap-2 text-sm font-bold transition py-4 rounded-2xl border 
-                                    {{ auth()->user()->favorites->contains($event->id) ? 'bg-[#fff5f2] border-[#E73812] text-[#E73812]' : 'bg-white border-[#B8948C]/20 text-[#B8948C] hover:text-black hover:border-black' }}">
+                                    {{ auth()->user()->favorites->contains($event->id) ? 'bg-[#fff5f2] border-[#E73812] text-[#E73812]' : 'bg-white border-[#E73812] text-[#E73812] hover:text-black hover:border-black' }}">
                                     <svg class="w-5 h-5 {{ auth()->user()->favorites->contains($event->id) ? 'fill-current' : 'fill-none stroke-current' }}" viewBox="0 0 24 24" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                     </svg>
