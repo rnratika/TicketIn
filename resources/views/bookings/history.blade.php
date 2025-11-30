@@ -1,25 +1,29 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div>
-                <h2 class="font-bold text-2xl text-black leading-tight tracking-tight">
-                    Tiket Saya
-                </h2>
-                <p class="text-sm text-[#B8948C] mt-1">Riwayat lengkap pemesanan event Anda.</p>
-            </div>
-            
-            <!-- Statistik Ringkas (Opsional) -->
-            <div class="hidden md:flex gap-3">
-                <div class="bg-white px-4 py-2 rounded-xl border border-[#B8948C]/20 shadow-sm flex items-center">
-                    <div class="w-2 h-2 rounded-full bg-[#E73812] mr-2"></div>
-                    <span class="text-xs font-bold text-black">{{ $bookings->count() }} Transaksi</span>
-                </div>
-            </div>
-        </div>
-    </x-slot>
-
     <div class="py-12 bg-[#FAFAFA] min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+                <div>
+                    <h2 class="font-bold text-2xl text-black leading-tight tracking-tight">
+                        Tiket Saya
+                    </h2>
+                    <p class="text-sm text-[#B8948C] mt-1">Riwayat lengkap pemesanan event Anda.</p>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('home') }}" 
+                    class="inline-flex items-center px-4 py-2.5 bg-[#E73812] text-white rounded-xl font-bold text-xs text-sm uppercase tracking-wider hover:bg-black transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        Cari Event
+                    </a>
+
+                    <div class="hidden md:flex bg-white px-4 py-2.5 rounded-xl border border-[#B8948C]/20 shadow-sm items-center">
+                        <div class="w-2 h-2 rounded-full bg-[#E73812] mr-2"></div>
+                        <span class="text-xs font-bold text-black">{{ $bookings->count() }} TRANSAKSI</span>
+                    </div>
+                </div>
+            </div>
             
             @if(session('success'))
                 <div class="mb-6 bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-r-xl shadow-sm flex items-center justify-between">
@@ -33,12 +37,10 @@
                 </div>
             @endif
 
-            <!-- Content Card (Style Table Organizer) -->
             <div class="bg-white shadow-2xl shadow-[#E73812]/20 sm:rounded-3xl border-2 border-[#E73812]/20 overflow-hidden">
                 
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
-                        <!-- Table Header -->
                         <thead class="text-xs text-white uppercase bg-[#E73812]">
                             <tr>
                                 <th class="px-8 py-5 tracking-wider font-bold rounded-tl-3xl">Event Detail</th>
@@ -48,13 +50,11 @@
                                 <th class="px-6 py-5 text-center tracking-wider font-bold rounded-tr-3xl">Aksi</th>
                             </tr>
                         </thead>
-                        
-                        <!-- Table Body -->
+
                         <tbody class="divide-y divide-[#B8948C]/10">
                             @forelse($bookings as $booking)
                             <tr class="bg-white hover:bg-[#fff5f2] transition duration-200 group">
-                                
-                                <!-- Column: Event & Ticket Info -->
+
                                 <td class="px-8 py-6">
                                     <div class="flex flex-col">
                                         <span class="text-xs font-bold text-[#E73812] uppercase tracking-widest mb-1">
@@ -72,7 +72,6 @@
                                     </div>
                                 </td>
 
-                                <!-- Column: Schedule -->
                                 <td class="px-6 py-6">
                                     <div class="flex flex-col gap-1">
                                         <div class="flex items-center text-black font-bold">
@@ -86,7 +85,6 @@
                                     </div>
                                 </td>
 
-                                <!-- Column: Status -->
                                 <td class="px-6 py-6 text-center">
                                     @if($booking->status == 'approved')
                                         <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold bg-green-100 text-green-700 border border-green-200">
@@ -103,18 +101,14 @@
                                     @endif
                                 </td>
 
-                                <!-- Column: Total Price -->
                                 <td class="px-6 py-6 text-right">
                                     <span class="block font-bold text-[#E73812] text-base">
                                         Rp {{ number_format($booking->total_price, 0, ',', '.') }}
                                     </span>
                                 </td>
 
-                                <!-- Column: Action -->
                                 <td class="px-6 py-6 text-center">
                                     <div class="flex items-center justify-center gap-2">
-                                        
-                                        <!-- Tombol Lihat Tiket (BARU) -->
                                         <a href="{{ route('booking.show', $booking->id) }}" class="p-2 rounded-lg text-[#E73812] hover:bg-[#E73812] hover:text-white border border-[#E73812]/30 transition tooltip group/btn" title="Lihat E-Ticket">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
                                         </a>
@@ -131,7 +125,6 @@
                                 </td>
                             </tr>
                             @empty
-                            <!-- Empty State -->
                             <tr>
                                 <td colspan="5" class="px-6 py-24 text-center">
                                     <div class="flex flex-col items-center justify-center">
@@ -140,9 +133,6 @@
                                         </div>
                                         <h3 class="text-xl font-bold text-black">Belum ada tiket</h3>
                                         <p class="text-[#B8948C] text-sm mt-2 mb-8 max-w-md leading-relaxed">Temukan event seru dan mulailah petualangan Anda!</p>
-                                        <a href="{{ route('home') }}" class="bg-[#E73812] hover:bg-black text-white font-bold py-3 px-8 rounded-xl shadow-lg shadow-red-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center">
-                                            Cari Event Sekarang <span class="ml-2">&rarr;</span>
-                                        </a>
                                     </div>
                                 </td>
                             </tr>
