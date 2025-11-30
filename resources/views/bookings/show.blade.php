@@ -111,7 +111,11 @@
                 <div class="ticket-left md:w-2/3 p-8 md:p-10 border-b md:border-b-0 md:border-r-4 border-dashed border-[#E73812] relative">
 
                     <div class="status-badge absolute top-6 right-8 no-print">
-                        @if($booking->status == 'approved')
+                        @if($booking->status == 'approved' && $booking->ticket->event->start_time->isPast())
+                            <span class="bg-gray-100 text-gray-500 px-3 py-1 rounded-full text-xs font-extrabold border border-gray-200 uppercase tracking-wider">
+                                Expired
+                            </span>
+                        @elseif($booking->status == 'approved')
                             <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-extrabold border border-green-200 uppercase tracking-wider">
                                 Paid & Confirmed
                             </span>

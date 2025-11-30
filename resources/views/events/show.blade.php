@@ -137,10 +137,10 @@
                             <h3 class="text-2xl font-extrabold text-black">Pilih Tiket</h3>
                             @if($eventHasPassed)
                                 <span class="bg-gray-100 text-gray-500 px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider border border-gray-200">
-                                    Event Selesai
+                                    Unavailable
                                 </span>
                             @else
-                                <span class="bg-[#fff5f2] text-[#E73812] px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider border border-[#E73812]/10">
+                                <span class="bg-[#fff5f2] text-[#E73812] px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider border border-[#E73812]/10 @if($eventHasPassed) hidden @endif">
                                     Available
                                 </span>
                             @endif
