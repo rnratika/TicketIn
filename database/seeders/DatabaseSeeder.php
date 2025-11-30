@@ -19,10 +19,18 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Event Organizer 1',
+            'name' => 'Event Organizer',
             'email' => 'eo@ticketin.com',
             'password' => Hash::make('password'),
             'role' => 'organizer',
+            'status' => 'active',
+        ]);
+
+        User::create([
+            'name' => 'User',
+            'email' => 'user@ticketin.com',
+            'password' => Hash::make('password'),
+            'role' => 'user',
             'status' => 'active',
         ]);
     }
